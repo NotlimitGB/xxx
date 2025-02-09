@@ -1,0 +1,21 @@
+.header-cont {
+    width: 100vw;
+
+    header {
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+
+        a {
+            font-size: 26px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}

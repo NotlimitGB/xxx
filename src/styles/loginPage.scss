@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 
     .login-cont {
         width: 400px;
@@ -20,6 +21,10 @@
         form {
             display: flex;
             flex-direction: column;
+
+            label {
+                margin-bottom: 5px;
+            }
 
                 
             input::placeholder {

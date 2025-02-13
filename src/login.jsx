@@ -9,8 +9,8 @@ import { Toaster, toast } from 'react-hot-toast';
 
 
 function LoginPage() {
-  const [username, setUsername] = useState(''); // Хук для хранения значения username
-  const [password, setPassword] = useState(''); // Хук для хранения значения password
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Предотвращает перезагрузку страницы
@@ -25,37 +25,37 @@ function LoginPage() {
 
   return (
     <>
-     <section className="login-page">
+      <section className="login-page">
         <div className="login-cont">
-          <HowToRegIcon sx={{ width: '40px', height: '40px' }}/>
+          <HowToRegIcon sx={{ width: '40px', height: '40px' }} />
           <h1>Вход в систему</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="Username">Логин</label>
-            <input 
-            id = "username"
-            type="text" 
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Логин" 
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Логин"
             />
             <label htmlFor="Password">Пароль</label>
             <input
-            id = "password"
-            value={password}
-            type="password" 
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Пароль" 
+              id="password"
+              value={password}
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Пароль"
             />
             <button type="submit">Войти</button>
           </form>
-          <Toaster 
+          <Toaster
             position="top-right"
-            reverseOrder={false}/>
+            reverseOrder={false} />
           <div className="forgot-password">
             <a href="#">Забыли пароль?</a>
           </div>
         </div>
-     </section>
+      </section>
     </>
 
   )

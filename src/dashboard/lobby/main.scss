@@ -1,0 +1,40 @@
+section {
+    width: 100vw;
+
+
+    .cards_cont {
+        display: grid;
+        width: 90%;
+        margin: 0 auto;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+
+
+        .card {
+            width: 400px;
+            border-radius: 10px;
+            background-color: azure;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                max-height: 300px;
+                object-fit: cover;
+                transition: all 0.3s ease-in-out;
+
+            }
+
+            img:hover {
+                transform: scale(1.05);
+            }
+
+            h2 {
+                color: black;
+            }
+        }
+    }
+}

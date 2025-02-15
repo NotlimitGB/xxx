@@ -4,6 +4,7 @@ import './styles/loginPage.scss'
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,7 @@ import { Toaster, toast } from 'react-hot-toast';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Предотвращает перезагрузку страницы
@@ -18,8 +20,9 @@ function LoginPage() {
     if (username.trim() === '' || password.trim() === '') {
       toast.error('Пожалуйста, введите оба поля: Логин и Пароль.');
     } else {
-      toast.success('Успешный вход!');
-      console.log(`Пользователь ${username} вошел в систему.`);
+      // toast.success('Успешный вход!');
+      navigate('/');
+      // console.log(`Пользователь ${username} вошел в систему.`);
     }
   };
 

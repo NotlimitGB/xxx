@@ -4,15 +4,15 @@ section {
 
     .cards_cont {
         display: grid;
+        max-width: 1400px;
         width: 90%;
         margin: 0 auto;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 3vw;
 
 
 
         .card {
-            width: 400px;
             border-radius: 10px;
             background-color: azure;
             display: flex;

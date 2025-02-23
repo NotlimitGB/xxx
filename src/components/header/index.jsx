@@ -23,7 +23,7 @@ export default function Header() {
     <>
       <div className="header-cont">
         <header>
-          <h1>XXX</h1>
+          <h1>YandexShalavka</h1>
           <Stack spacing={3} direction={"row"} component="nav">
             {PAGES_MENU.map((item, index) => {
               return (

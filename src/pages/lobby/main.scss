@@ -19,6 +19,7 @@ section {
             justify-content: center;
             flex-direction: column;
             overflow: hidden;
+            color: #000;
 
             img {
                 width: 100%;
@@ -32,9 +33,6 @@ section {
                 transform: scale(1.05);
             }
 
-            h2 {
-                color: black;
-            }
         }
     }
 }

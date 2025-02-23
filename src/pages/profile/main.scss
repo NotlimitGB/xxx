@@ -1,15 +1,87 @@
-section {
-    width: 100vw;
+// main.scss
 
-    .profile-cont {
-        display: grid;
-        grid-template-columns: 2fr 3fr;
-        gap: 4vw;
-        max-width: 1400px;
-        margin: 0 auto;
+.profile-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    height: 60vh;
+
+
+    .profile-image {
+        margin-right: 40px;
+        height: 90%;
 
         img {
+            width: 415px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .thumbnails {
             width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 8px;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: border 0.3s ease;
+
+
+            }
+        }
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0;
+        height: 90%;
+
+        span {
+            color: #000;
+            font-size: 30px;
+        }
+
+        p:first-child {
+            margin-top: 20px;
+
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            margin: 5px 0;
+            color: #555;
+        }
+
+
+        .edit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #e65b50;
+            }
         }
     }
 }

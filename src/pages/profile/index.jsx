@@ -1,16 +1,23 @@
 import "./main.scss";
-import worker1 from "../../assets/worker_1.jpg";
-import worker2 from "../../assets/worker_2.jpg";
-import worker3 from "../../assets/worker_3.jpg";
-import worker4 from "../../assets/worker_4.jpg";
 
-import { useState } from 'react';
+import { useGetIDModel } from "../../queries/models/models";
 
+import { use, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function ProfilePage() {
-  const [mainImage, setMainImage] = useState(worker1);
+  const { id } = useParams();
+  const models_ID = useGetIDModel(id);
 
-  const handleThumbnailClick = (image) => {
+  const [mainImage, setMainImage] = useState();
+
+  useEffect(() => {    
+    if (models_ID?.data?.images) {
+      setMainImage(`http://localhost:3000${models_ID?.data?.images[0]}`);
+    }
+  }, [models_ID?.data]);
+
+  const handleThumbnailClick = (image) => {    
     setMainImage(image);
   };
 
@@ -19,35 +26,26 @@ export default function ProfilePage() {
       <section>
         <div className="profile-cont">
           <div className="profile-image">
-            <img src={mainImage} alt="Profile" />
+              <img src={mainImage} alt="" />
             <div className="thumbnails">
-              <img
-                src={worker1}
-                onClick={() => handleThumbnailClick(worker1)}
-              />
-              <img
-                src={worker2}
-                onClick={() => handleThumbnailClick(worker2)}
-              />
-              <img
-                src={worker3}
-                onClick={() => handleThumbnailClick(worker3)}
-              />
-              <img
-                src={worker4}
-                onClick={() => handleThumbnailClick(worker4)}
-              />
+              {models_ID?.data?.images &&
+                models_ID?.data?.images.length &&
+                models_ID?.data?.images.map((item) => {
+                  const worker = `http://localhost:3000${item}`;
+                  return (
+                    <img
+                      key={item}
+                      src={worker}
+                      onClick={() => handleThumbnailClick(worker)}
+                      className={mainImage === worker ? "active" : ""}
+                    />
+                  );
+                })}
             </div>
           </div>
           <div className="profile-info">
-            <span>Анюта Лапусик-Мяусик</span>
-            <div>
-              <p>Возраст: 45 лет</p>
-              <p>Опыт работы: 20 лет</p>
-              <p>Профиль: Жрица любви</p>
-              <p>Услуги: Минет, анал, манал, шманал, пеггинг</p>
-              <p>Доп. Услуги: Без презерватива</p>
-            </div>
+            <h2>{models_ID?.data?.name}</h2>
+            <p>{models_ID?.data?.description}</p>
             <button className="edit-btn">Связаться</button>
           </div>
         </div>

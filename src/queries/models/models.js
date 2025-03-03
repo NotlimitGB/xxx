@@ -8,7 +8,10 @@ export function useGetAllModels() {
         queryKey: ["all-models"],
         queryFn: async () => {
             try {
-                return await instance.get('/models/');
+                const result =  await instance.get(`/models`);
+
+                return result.data;
+
             } catch (error) {
                 throw error;
             }
@@ -18,13 +21,15 @@ export function useGetAllModels() {
 
 // ------------------------------------------------------------------------------------------------------
 // Модель по ID
-export function useGetIDModel() {
+export function useGetIDModel( id ) {
 
     return useQuery({
-        queryKey: ["id-model"],
+        queryKey: [`id-model-${id}`],
         queryFn: async () => {
             try {
-                return await instance.get('/models/{ID}');
+                const result =  await instance.get(`/models/${id}`);
+
+                return result.data;
             } catch (error) {
                 throw error;
             }

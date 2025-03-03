@@ -5,6 +5,7 @@ import LobbyPage from "./pages/lobby";
 import LoginPage from "./login";
 import ProfilePage from "./pages/profile";
 
+
 import { Routes, Route, Outlet } from "react-router-dom";
 
 const MainLayout = () => {
@@ -24,7 +25,7 @@ function App() {
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<LobbyPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="profile/:id" element={<ProfilePage />} />
       </Route>
     </Routes>
   );

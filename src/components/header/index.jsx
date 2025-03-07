@@ -14,7 +14,7 @@ const PAGES_MENU = [
   },
   {
     title: "Аккаунт",
-    path: "#",
+    path: "/accounts",
   },
 ];
 

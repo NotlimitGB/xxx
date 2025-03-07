@@ -50,15 +50,34 @@
             }
         }
 
-        .forgot-password {
-            margin-top: 10px;
-            text-align: left;
+        .button-grid {
+            display: flex;
+            justify-content: space-between;
 
-            a {
-                color: #fff;
-                text-decoration: underline;
+
+            .forgot-password {
+                margin-top: 10px;
+                text-align: left;
+    
+                a {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+    
+            }
+            .new-profile {
+                margin-top: 10px;
+                text-align: left;
+    
+                a {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+                
             }
         }
+
+
     }
 
 

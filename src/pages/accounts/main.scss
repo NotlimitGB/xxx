@@ -1,0 +1,173 @@
+/* styles.scss */
+
+/* Общие стили для страницы аккаунта */
+.accountPage {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  
+    .section {
+      margin-bottom: 40px;
+  
+      h2 {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+      }
+    }
+  
+    /* Стили для профиля пользователя */
+    .profile {
+      display: flex;
+      align-items: center;
+  
+      .avatar {
+        margin-right: 20px;
+  
+        img {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+  
+      .info {
+        .name {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+  
+        .details {
+          p {
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+  
+    /* Стили для истории заказов */
+    .orderHistory {
+      .order {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+  
+        .orderHeader {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+  
+          .orderId {
+            font-weight: bold;
+          }
+  
+          .orderDate {
+            color: #555;
+          }
+        }
+  
+        .orderDetails {
+          .detail {
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+  
+    /* Стили для поддержки и помощи */
+    .support {
+        
+
+
+      .contactInfo {
+        margin-bottom: 20px;
+  
+        p {
+          margin: 5px 0;
+        }
+      }
+  
+      .feedbackForm {
+        .formGroup {
+          margin-bottom: 15px;
+  
+          label {
+            display: block;
+            margin-bottom: 5px;
+          }
+  
+          input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+          }
+        }
+  
+        .submitButton {
+          background-color: #28a745;
+          color: #fff;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #218838;
+          }
+        }
+      }
+      
+    }
+
+    .faq-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .faq-item {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      cursor: pointer;
+    }
+    
+    .faq-question h3 {
+      margin: 0;
+    }
+    
+    .faq-question span {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+      opacity: 0;
+      padding: 0 15px;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px; /* Установите максимальную высоту, достаточную для вашего контента */
+      opacity: 1;
+      transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+    }
+    
+    .faq-answer p {
+      margin: 15px 0;
+    }
+  }
+

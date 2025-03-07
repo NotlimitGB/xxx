@@ -1,6 +1,7 @@
 import "./main.scss";
 import { Link } from "react-router-dom";
 import { useGetAllModels } from "../../queries/models/models";
+import SearchIcon from '@mui/icons-material/Search';
 
 function LobbyPage() {
   const models = useGetAllModels();
@@ -9,6 +10,10 @@ function LobbyPage() {
   return (
     <>
       <section>
+        <div className="search-bar">
+          <input type="text" placeholder="Search" />
+          <SearchIcon className="search-icon"/>
+        </div>
         <div className="cards_cont">
           {models.isSuccess &&
             models.data &&

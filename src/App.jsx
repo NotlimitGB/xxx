@@ -4,6 +4,7 @@ import Header from "./components/header";
 import LobbyPage from "./pages/lobby";
 import LoginPage from "./login";
 import ProfilePage from "./pages/profile";
+import AccountPage from "./pages/accounts";
 
 
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -25,6 +26,7 @@ function App() {
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<LobbyPage />} />
+        <Route path="/accounts" element={<AccountPage />} />
         <Route path="profile/:id" element={<ProfilePage />} />
       </Route>
     </Routes>

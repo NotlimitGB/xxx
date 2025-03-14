@@ -1,5 +1,7 @@
 // main.scss
-
+section {
+  position: relative;
+}
 .profile-cont {
     display: flex;
     flex-direction: row;
@@ -10,6 +12,7 @@
     border-radius: 8px;
     height: 60vh;
     color: #000;
+
 
 
     .profile-image {
@@ -86,3 +89,79 @@
         }
     }
 }
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 25%;
+    right: 40%;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1001;
+  
+    
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    input:not(:last-child) {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #000;
+  
+      &:focus {
+        border-color: #e74c3c;
+        outline: none;
+      }
+    }
+  
+
+    input:last-child {
+      padding: 10px;
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: red;
+      }
+    }
+  
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+  
+      &:hover {
+        color: #e74c3c;
+      }
+    }
+  }
+  
+
+  
+ 

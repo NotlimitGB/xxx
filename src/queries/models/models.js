@@ -1,5 +1,5 @@
 import instance from "../instance";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 // ------------------------------------------------------------------------------------------------------
 // Получить всех моделей
 export function useGetAllModels() {
@@ -36,3 +36,20 @@ export function useGetIDModel( id ) {
         },
     });
 }
+
+// ------------------------------------------------------------------------------------------------------
+// создать модель
+
+export function useCreateModel() {
+    return useMutation({
+      mutationFn: async (body) => {
+        try {
+          const result = await instance.post(`/models`, body);
+          return result.data;
+        } catch (error) {
+          throw error;
+        }
+      },
+    });
+  }
+  

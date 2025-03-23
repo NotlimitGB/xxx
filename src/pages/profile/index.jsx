@@ -5,7 +5,9 @@ import { useGetIDModel } from "../../queries/models/models";
 import { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function ProfilePage() {
+const API_URL = import.meta.env.VITE_API_BASE_URL
+
+export default function EditPage() {
   const { id } = useParams();
   const models_ID = useGetIDModel(id);
 
@@ -13,7 +15,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (models_ID?.data?.images) {
-      setMainImage(`http://localhost:3000${models_ID?.data?.images[0]}`);
+      setMainImage(`${API_URL}${models_ID?.data?.images[0]}`);
     }
   }, [models_ID?.data]);
 
@@ -41,7 +43,7 @@ export default function ProfilePage() {
               {models_ID?.data?.images &&
                 models_ID?.data?.images.length &&
                 models_ID?.data?.images.map((item) => {
-                  const worker = `http://localhost:3000${item}`;
+                  const worker = `${API_URL}${item}`;
                   return (
                     <img
                       key={item}

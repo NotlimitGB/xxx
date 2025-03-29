@@ -9,6 +9,7 @@ import EditPage from "./pages/accounts/edit";
 
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import RegistrationPage from "./registration";
 
 const MainLayout = () => {
   return (
@@ -26,6 +27,7 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/reg" element={<RegistrationPage />} />
       <Route path="/" element={<MainLayout />}>
         <Route index element={<LobbyPage />} />
         <Route path="/accounts" element={<AccountPage />} />

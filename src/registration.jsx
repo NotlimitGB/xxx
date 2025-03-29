@@ -5,38 +5,39 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useAuthUser} from "./queries/auth";
+import { useCreateUser } from "./queries/auth";
 
 
-function LoginPage() {
+function RegistrationPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
 
-  const mutation = useAuthUser();
+  const mutation = useCreateUser();
 
 
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Предотвращает перезагрузку страницы
+    console.log(event);
 
     if (username.trim() === "" || password.trim() === "") {
       toast.error("Пожалуйста, введите оба поля: Логин и Пароль.");
     } else {
+      // toast.success('Успешный вход!');
+      // console.log(`Пользователь ${username} вошел в систему.`);
       const formData = new FormData(event.currentTarget); // Достаём данные формы
       const data = Object.fromEntries(formData.entries()); // Превращаем в объект
-      // toast.success('Успешный вход!');
-      // navigate("/");
-      // console.log(`Пользователь ${username} вошел в систему.`);
+    
 
       toast.promise(
         mutation.mutateAsync(data),
         {
           loading: "Запрашиваем данные...",
           success: () => {
-            navigate("/");
-            return "Пользователь вошел в систему!";
+            navigate("/login");
+            return "Регистрация прошла успешно!";
           },
           error: "Ошибка при запросе данных!",
         }
@@ -49,7 +50,7 @@ function LoginPage() {
       <section className="login-page">
         <div className="login-cont">
           <HowToRegIcon sx={{ width: "40px", height: "40px" }} />
-          <h1>Вход в систему</h1>
+          <h1>Регистрация</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="Username">Логин</label>
             <input
@@ -69,21 +70,14 @@ function LoginPage() {
               placeholder="Пароль"
               name="password"
             />
-            <button type="submit">Войти</button>
+            <button type="submit">Создать</button>
           </form>
           <Toaster position="top-right" reverseOrder={false} />
-          <div className="button-grid">
-            <div className="forgot-password">
-              <a href="#">Забыли пароль?</a>
-            </div>
-            <div className="new-profile">
-              <a href="./reg">Создать профиль</a>
-            </div>
-          </div>
+          
         </div>
       </section>
     </>
   );
 }
 
-export default LoginPage;
+export default RegistrationPage;

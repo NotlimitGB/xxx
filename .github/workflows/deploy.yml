@@ -19,11 +19,11 @@ jobs:
         with:
           node-version: "18"
 
-      # - name: Enable Corepack
-      #   run: corepack enable
+      - name: Включение корепака
+        run: corepack enable
 
-      # - name: Install Yarn with Corepack
-      #   run: corepack prepare yarn@4.5.3 --activate
+      - name: Установка ярна
+        run: corepack prepare yarn@4.6.0 --activate
 
       - name: Установка зависимостей
         run: |

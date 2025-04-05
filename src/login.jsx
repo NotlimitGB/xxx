@@ -46,7 +46,7 @@ function LoginPage() {
       <section className="login-page">
         <div className="login-cont">
           <HowToRegIcon sx={{ width: "40px", height: "40px" }} />
-          <h1>Вход в систему</h1>
+          <h1>TEST Вход в систему</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="Username">Логин</label>
             <input

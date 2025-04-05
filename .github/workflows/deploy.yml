@@ -42,4 +42,4 @@ jobs:
             git pull origin master
             yarn install
             yarn build
-            pm2 restart frontend || pm2 start yarn --name frontend -- start
+            sudo systemctl reload nginx

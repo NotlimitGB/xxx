@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./global.scss";
+import "./styles/mainPage.scss";
+import Header from "./components/header";
+import LobbyPage from "./pages/lobby";
+import LoginPage from "./login";
+import ProfilePage from "./pages/profile";
+import AccountPage from "./pages/accounts";
+import EditPage from "./pages/accounts/edit";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Routes, Route, Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import RegistrationPage from "./registration";
+import { createContext, useContext, useEffect, useState } from "react";
 
+const AppContext = createContext();
+
+const MainLayout = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Toaster position="top-right" reverseOrder={false} />
     </>
-  )
-}
+  );
+};
 
-export default App
+function App() {
+  const [data, setData] = useState(() => {
+    // Попытка загрузить данные из localStorage при старте
+    const storedData = localStorage.getItem('data');
+    return storedData ? JSON.parse(storedData) : {};
+  });
+
+  useEffect(() => {
+    // Сохраняем данные в localStorage всякий раз, когда они изменяются
+    if (data) {
+      localStorage.setItem('data', JSON.stringify(data));
+    }
+  }, [data]);
+
+  return (
+    <AppContext.Provider value={{ data, setData }}>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/reg" element={<RegistrationPage />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<LobbyPage />} />
+        <Route path="/accounts" element={<AccountPage />} />
+        <Route path="accounts/edit" element={<EditPage />} />
+        <Route path="profile/:id" element={<ProfilePage />} />
+      </Route>
+    </Routes>
+    </AppContext.Provider>
+  );
+}
+export const useAppContext = () => useContext(AppContext);
+export default App;

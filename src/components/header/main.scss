@@ -1,0 +1,23 @@
+.header-cont {
+    width: 100vw;
+    border-bottom: 3px solid #800000;
+    margin-bottom: 10vh;
+
+    header {
+        width: 100%;
+        max-width: 1400px;
+        padding: 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+
+        a {
+            font-size: 26px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}

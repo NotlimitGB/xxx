@@ -5,18 +5,14 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useAuthUser} from "./queries/auth";
-
+import { useAuthUser } from "./queries/auth";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
   const mutation = useAuthUser();
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Предотвращает перезагрузку страницы
@@ -30,17 +26,18 @@ function LoginPage() {
       // navigate("/");
       // console.log(`Пользователь ${username} вошел в систему.`);
 
-      toast.promise(
-        mutation.mutateAsync(data),
-        {
-          loading: "Запрашиваем данные...",
-          success: () => {
-            navigate("/");
-            return "Пользователь вошел в систему!";
-          },
-          error: "Ошибка при запросе данных!",
-        }
-      );
+      toast.promise(mutation.mutateAsync(data), {
+        loading: "Запрашиваем данные...",
+        success: () => {
+          navigate("/");
+          return "Пользователь вошел в систему!";
+        },
+        error: (error) => {
+          return typeof error === "string"
+            ? error
+            : "Ошибка при запросе данных";
+        },
+      });
     }
   };
 

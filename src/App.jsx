@@ -10,6 +10,9 @@ import EditPage from "./pages/accounts/edit";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import RegistrationPage from "./registration";
+import { createContext, useContext, useEffect, useState } from "react";
+
+const AppContext = createContext();
 
 const MainLayout = () => {
   return (
@@ -24,7 +27,21 @@ const MainLayout = () => {
 };
 
 function App() {
+  const [data, setData] = useState(() => {
+    // Попытка загрузить данные из localStorage при старте
+    const storedData = localStorage.getItem('data');
+    return storedData ? JSON.parse(storedData) : {};
+  });
+
+  useEffect(() => {
+    // Сохраняем данные в localStorage всякий раз, когда они изменяются
+    if (data) {
+      localStorage.setItem('data', JSON.stringify(data));
+    }
+  }, [data]);
+
   return (
+    <AppContext.Provider value={{ data, setData }}>
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/reg" element={<RegistrationPage />} />
@@ -35,7 +52,8 @@ function App() {
         <Route path="profile/:id" element={<ProfilePage />} />
       </Route>
     </Routes>
+    </AppContext.Provider>
   );
 }
-
+export const useAppContext = () => useContext(AppContext);
 export default App;

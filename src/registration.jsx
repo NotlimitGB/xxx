@@ -39,7 +39,11 @@ function RegistrationPage() {
             navigate("/login");
             return "Регистрация прошла успешно!";
           },
-          error: "Ошибка при запросе данных!",
+          error: (error) => {
+            return typeof error === "string"
+              ? error
+              : "Ошибка при запросе данных";
+          },
         }
       );
     }

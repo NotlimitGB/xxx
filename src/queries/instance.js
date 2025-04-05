@@ -1,9 +1,13 @@
 import axios from "axios";
 
-const instance = axios.create({
+
+const createInstance = (token) => {
+  return axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    timeout: 1000,
-});
+    headers: {
+      Authorization: token ? `Bearer ${token}` : undefined,
+    },
+  });
+};
 
-
-export default instance;
+export default createInstance;

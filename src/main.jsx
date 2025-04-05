@@ -10,6 +10,7 @@ import "@fontsource/sofia-sans/500.css";
 import "@fontsource/sofia-sans/700.css";
 const queryClient = new QueryClient();
 
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

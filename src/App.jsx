@@ -29,29 +29,29 @@ const MainLayout = () => {
 function App() {
   const [data, setData] = useState(() => {
     // Попытка загрузить данные из localStorage при старте
-    const storedData = localStorage.getItem('data');
+    const storedData = localStorage.getItem("data");
     return storedData ? JSON.parse(storedData) : {};
   });
 
   useEffect(() => {
     // Сохраняем данные в localStorage всякий раз, когда они изменяются
     if (data) {
-      localStorage.setItem('data', JSON.stringify(data));
+      localStorage.setItem("data", JSON.stringify(data));
     }
   }, [data]);
 
   return (
     <AppContext.Provider value={{ data, setData }}>
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/reg" element={<RegistrationPage />} />
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<LobbyPage />} />
-        <Route path="/accounts" element={<AccountPage />} />
-        <Route path="accounts/edit" element={<EditPage />} />
-        <Route path="profile/:id" element={<ProfilePage />} />
-      </Route>
-    </Routes>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/reg" element={<RegistrationPage />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<LobbyPage />} />
+          <Route path="/accounts" element={<AccountPage />} />
+          <Route path="/accounts/edit" element={<EditPage />} />
+          <Route path="profile/:id" element={<ProfilePage />} />
+        </Route>
+      </Routes>
     </AppContext.Provider>
   );
 }

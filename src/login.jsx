@@ -24,6 +24,7 @@ function LoginPage() {
       const data = Object.fromEntries(formData.entries()); // Превращаем в объект
       // toast.success('Успешный вход!');
       // navigate("/");
+
       // console.log(`Пользователь ${username} вошел в систему.`);
 
       toast.promise(mutation.mutateAsync(data), {
@@ -46,7 +47,7 @@ function LoginPage() {
       <section className="login-page">
         <div className="login-cont">
           <HowToRegIcon sx={{ width: "40px", height: "40px" }} />
-          <h1>Testу</h1>
+          <h1>Вход в систему</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="Username">Логин</label>
             <input

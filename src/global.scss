@@ -8,7 +8,6 @@ html {
   color: #fff;
 }
 
-
 body {
   margin: 0px;
   padding: 0px;
@@ -23,6 +22,10 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+input {
+  all: unset;
 }
 
 .input-field {
@@ -42,15 +45,14 @@ ul {
   font-size: 16px;
   color: #000;
 
+  &:hover {
+    background-color: #ff493f;
+  }
+  &:active {
+    background-color: #ff3d00;
+  }
   &.accent {
     background-color: #ff6f61;
     color: #fff;
-
-    &:hover {
-      background-color: #ff493f;
-    }
-    &:active {
-      background-color: #ff3d00;
-    }
   }
 }

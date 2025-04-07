@@ -4,8 +4,8 @@
 }
 
 html {
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
 }
 
 body {
@@ -43,10 +43,11 @@ input {
   padding: 10px;
   border-radius: 6px;
   font-size: 16px;
-  color: #000;
+  color: #fff;
+  background-color: #8bc34a;
 
   &:hover {
-    background-color: #ff493f;
+    background-color: #7cb342;
   }
   &:active {
     background-color: #ff3d00;

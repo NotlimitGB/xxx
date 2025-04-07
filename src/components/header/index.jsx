@@ -34,7 +34,10 @@ export default function Header() {
             })}
           </Stack>
           <Link to={"/login"}>
-            <AccountCircleOutlinedIcon sx={{ width: "40px", height: "40px" }} />
+            <AccountCircleOutlinedIcon
+              className="Icon"
+              sx={{ width: "40px", height: "40px" }}
+            />
           </Link>
         </header>
       </div>

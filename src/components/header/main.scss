@@ -1,23 +1,66 @@
+// main.scss - кидай это вместо своего файла
 .header-cont {
-    width: 100%;
-    border-bottom: 3px solid #800000;
-    margin-bottom: 10vh;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(144, 238, 144, 0.2); // лёгкая салатовая тень
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 20px;
 
-    header {
-        width: 100%;
-        max-width: 1400px;
-        padding: 20px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 auto;
+  header {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
 
-        a {
-            font-size: 26px;
-        }
+    h1 {
+      color: #4caf50; // фирменный салатовый
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
 
-        a:hover {
-            text-decoration: underline;
-        }
+      &:hover {
+        color: darken(#4caf50, 10%); // чуть темнее при наведении
+        transform: scale(1.02);
+      }
     }
+
+    nav {
+      a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 20px;
+        transition: all 0.3s;
+        font-size: 20px;
+
+        &:hover {
+          background: #f1f8e9; // светлый салатовый фон
+          color: #4caf50;
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    .Icon {
+      // стили для иконки
+      color: #4caf50;
+      transition: all 0.3s;
+
+      &:hover {
+        color: darken(#4caf50, 15%);
+        transform: scale(1.1);
+      }
+    }
+  }
 }

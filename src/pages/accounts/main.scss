@@ -221,78 +221,73 @@
 
   /* FAQ — теперь с плавными анимациями */
   .faq-container {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 20px;
   }
 
   .faq-item {
-    border: 1px solid #e0e0e0;
-    margin-bottom: 1rem;
-    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
     overflow: hidden;
-    transition: all 0.3s;
-
-    &:hover {
-      border-color: #8bc34a;
-    }
   }
 
   .faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem;
+    padding: 15px;
     cursor: pointer;
-    background: #fafafa;
-    transition: all 0.3s;
-
-    h3 {
-      margin: 0;
-      color: #333;
-      font-weight: 600;
-    }
-
-    span {
-      font-size: 1.5rem;
-      color: #8bc34a;
-      transition: transform 0.3s;
-    }
-
-    &:hover {
-      background: #f5f5f5;
-    }
   }
 
-  .faq-item.active {
-    .faq-question {
-      background: #f0f0f0;
+  .faq-question h3 {
+    margin: 0;
+  }
 
-      span {
-        transform: rotate(45deg);
-      }
-    }
+  .faq-question span {
+    font-size: 1.5em;
+    font-weight: bold;
   }
 
   .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s ease;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
     opacity: 0;
-    padding: 0 1.2rem;
+    padding: 0 15px;
   }
 
   .faq-item.active .faq-answer {
     max-height: 500px;
     opacity: 1;
-    padding: 0 1.2rem 1.2rem;
-    background: white;
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
   }
 
   .faq-answer p {
-    margin: 1rem 0;
-    color: #555;
-    line-height: 1.6;
+    margin: 15px 0;
+  }
+
+  .bt_account {
+    all: unset;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff493f;
+
+    &:hover {
+      background-color: #fd0d00;
+    }
+
+    &:active {
+      background-color: #ff3d00;
+    }
+
+    &.accent {
+      background-color: #ff6f61;
+      color: #fff;
+    }
   }
 
   /* Кнопки — теперь со стилем */

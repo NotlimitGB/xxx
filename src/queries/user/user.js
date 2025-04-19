@@ -32,6 +32,7 @@ export function useGetProfile() {
 
 export function useBeContractor() {
   const { data, setData } = useAppContext();
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: async () => {
       try {

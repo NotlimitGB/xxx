@@ -8,6 +8,7 @@ import { USER_ROLES } from "../../enum";
 import { useAppContext } from "../../App";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function AccountPage() {
   const [activeIndices, setActiveIndices] = useState([]);
@@ -77,16 +78,36 @@ function AccountPage() {
                 </div>
               </div>
             </div>
-            {user.data.role === USER_ROLES.пользователь && (
-              <button onClick={onBeContractor} className="button bt_account">
-                Стать исполнительем
-              </button>
-            )}
-            {user.data.role === USER_ROLES.исполнитель && (
-              <p>Вы уже исполнитель</p>
-            )}
-            {user.data.role === USER_ROLES.админ && <p>Вы Админ</p>}
-            {user.data.role === USER_ROLES.модератор && <p>Вы модератор</p>}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="role_name">
+                {user.data.role === USER_ROLES.пользователь && (
+                  <button
+                    onClick={onBeContractor}
+                    className="button bt_account"
+                  >
+                    Стать исполнительем
+                  </button>
+                )}
+                {user.data.role === USER_ROLES.исполнитель && (
+                  <p>Вы уже исполнитель</p>
+                )}
+                {user.data.role === USER_ROLES.админ && <p>Вы Админ</p>}
+                {user.data.role === USER_ROLES.модератор && <p>Вы модератор</p>}
+              </div>
+              {user.data.role === USER_ROLES.исполнитель && (
+                <div className="create_anket">
+                  <Link to={"/profile/add"} className="button">
+                    Создать Анкету
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* История заказов */}
             <div className="section orderHistory">

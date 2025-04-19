@@ -5,13 +5,13 @@ import LobbyPage from "./pages/lobby";
 import LoginPage from "./login";
 import ProfilePage from "./pages/profile";
 import AccountPage from "./pages/accounts";
-import EditPage from "./pages/accounts/edit";
+import CreateProfilePage from "./pages/profile/add";
 
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import RegistrationPage from "./registration";
 import { createContext, useContext, useEffect, useState } from "react";
-import TestRHF from "./pages/testRHF";
+import EditProfilePage from "./pages/profile/edit";
 
 const AppContext = createContext();
 
@@ -49,8 +49,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LobbyPage />} />
           <Route path="/accounts" element={<AccountPage />} />
-          <Route path="/testrhf" element={<TestRHF />} />
-          <Route path="/accounts/edit" element={<EditPage />} />
+          <Route path="/profile/add" element={<CreateProfilePage />} />
+          <Route path="/profile/edit/:id" element={<EditProfilePage />} />
           <Route path="profile/:id" element={<ProfilePage />} />
         </Route>
       </Routes>

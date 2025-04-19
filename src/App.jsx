@@ -11,6 +11,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import RegistrationPage from "./registration";
 import { createContext, useContext, useEffect, useState } from "react";
+import TestRHF from "./pages/testRHF";
 
 const AppContext = createContext();
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LobbyPage />} />
           <Route path="/accounts" element={<AccountPage />} />
+          <Route path="/testrhf" element={<TestRHF />} />
           <Route path="/accounts/edit" element={<EditPage />} />
           <Route path="profile/:id" element={<ProfilePage />} />
         </Route>

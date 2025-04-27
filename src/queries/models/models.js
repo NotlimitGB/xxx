@@ -92,3 +92,66 @@ export function useEditContractor() {
     },
   });
 }
+
+// ------------------------------------------------------------------------------------------------------
+// Загрузить аватар исполнителя
+
+export function useUploadContarctorAvatar() {
+  const { data, setData } = useAppContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async ({ file, id }) => {
+      try {
+        // Создаем FormData (даже если она пустая или содержит поля)
+        const formData = new FormData();
+        // Пример: если нужно добавить поле
+        formData.append('images', file);
+
+        const result = await instance(data.token).post(
+          `/contractor/${id}/upload_images`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data', // Указываем тип контента
+            },
+          }
+        );
+
+        return result.data;
+      } catch (error) {
+        if (error.response?.status === 401) {
+          setData({});
+          navigate('/login');
+        }
+        throw error;
+      }
+    },
+  });
+}
+
+// ------------------------------------------------------------------------------------------------------
+// Удалить фото исполнителя
+
+export function useRemoveImageContractor() {
+  const { data, setData } = useAppContext();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: async ({ id, imageUrl }) => {
+      try {
+        const result = await instance(data.token).delete(`/contractor/${id}/remove-image`, {
+          data: {
+            imageUrl: imageUrl,
+          },
+        });
+        return result.data;
+      } catch (error) {
+        if (error.response?.status === 401) {
+          setData({});
+          navigate('/login');
+        }
+        throw error;
+      }
+    },
+  });
+}

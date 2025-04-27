@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../App";
-import instance from "../instance";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../App';
+import instance from '../instance';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 // ------------------------------------------------------------------------------------------------------
 // Получить Свой профель
@@ -19,7 +19,7 @@ export function useGetProfile() {
       } catch (error) {
         if (error.response?.status === 401) {
           setData({});
-          navigate("/login");
+          navigate('/login');
         }
         throw error;
       }
@@ -41,7 +41,40 @@ export function useBeContractor() {
       } catch (error) {
         if (error.response?.status === 401) {
           setData({});
-          navigate("/login");
+          navigate('/login');
+        }
+        throw error;
+      }
+    },
+  });
+}
+
+// ------------------------------------------------------------------------------------------------------
+// Загрузить аватар юзера
+
+export function useUploadUserAvatar() {
+  const { data, setData } = useAppContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (file) => {
+      try {
+        // Создаем FormData (даже если она пустая или содержит поля)
+        const formData = new FormData();
+        // Пример: если нужно добавить поле
+        formData.append('avatar', file);
+
+        const result = await instance(data.token).post(`/user/upload-avatar`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Указываем тип контента
+          },
+        });
+
+        return result.data;
+      } catch (error) {
+        if (error.response?.status === 401) {
+          setData({});
+          navigate('/login');
         }
         throw error;
       }

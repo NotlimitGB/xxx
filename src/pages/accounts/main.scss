@@ -4,7 +4,7 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
@@ -49,8 +49,8 @@
         box-shadow: 0 4px 20px rgba(139, 195, 74, 0.3);
       }
 
-      &::after {
-        content: "✏️";
+      & > .avatar_edit {
+        all: unset;
         position: absolute;
         bottom: 10px;
         right: 10px;
@@ -82,7 +82,7 @@
           align-items: center;
 
           &::before {
-            content: "•";
+            content: '•';
             color: #8bc34a;
             margin-right: 0.5rem;
             font-size: 1.2rem;
@@ -153,7 +153,7 @@
         position: relative;
 
         &::before {
-          content: "📞";
+          content: '📞';
           position: absolute;
           left: 0;
         }
@@ -253,7 +253,9 @@
   .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    transition:
+      max-height 0.5s ease-out,
+      opacity 0.5s ease-out;
     opacity: 0;
     padding: 0 15px;
   }
@@ -261,7 +263,9 @@
   .faq-item.active .faq-answer {
     max-height: 500px;
     opacity: 1;
-    transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+    transition:
+      max-height 0.5s ease-in,
+      opacity 0.5s ease-in;
   }
 
   .faq-answer p {

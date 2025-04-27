@@ -1,26 +1,42 @@
 import './main.scss';
 
-import { useGetIDContractor } from '../../queries/models/models';
+import ClearIcon from '@mui/icons-material/Clear';
 
-import { use, useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import {
+  useGetIDContractor,
+  useRemoveImageContractor,
+  useUploadContarctorAvatar,
+} from '../../queries/models/models';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppContext } from '../../App';
+import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
+import { Stack } from '@mui/material';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function EditPage() {
-  const { data, setData } = useAppContext();
+  const removeImage = useRemoveImageContractor();
+  const queryClient = useQueryClient();
+  const fileInputRef = useRef(null);
+  const uploadImage = useUploadContarctorAvatar();
+  const { data } = useAppContext();
 
   const { id } = useParams();
   const contractor_ID = useGetIDContractor(id);
 
   const [mainImage, setMainImage] = useState();
 
-  const isMyProfile = useMemo(() => data.id === id, [data, id]);
+  const isMyProfile = useMemo(
+    () => data.id === contractor_ID.data?.idUser.id,
+    [data, contractor_ID.data]
+  );
 
   useEffect(() => {
     if (contractor_ID?.data?.images) {
-      setMainImage(`${API_URL}${contractor_ID?.data?.images[0]}`);
+      setMainImage(contractor_ID?.data?.images[0]);
     }
   }, [contractor_ID?.data]);
 
@@ -37,27 +53,70 @@ export default function EditPage() {
     document.querySelector('.profile-cont').style.filter = 'blur(0)';
   }
 
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0] || null;
+    // Здесь можно добавить логику обработки файла
+    if (file) {
+      console.log('Выбран файл:', file.name);
+      toast.promise(uploadImage.mutateAsync({ file, id }), {
+        loading: 'Загружаем фото...',
+        success: () => {
+          queryClient.invalidateQueries(`id-model-${data.id}`);
+
+          return 'Фото загруженно!';
+        },
+        error: (error) => {
+          return typeof error === 'string' ? error : 'Ошибка при загрузке фото';
+        },
+      });
+    }
+  };
+
+  const handleRemoveImage = (url) => {
+    toast.promise(removeImage.mutateAsync({ id, imageUrl: url }), {
+      loading: 'Удаляем фото...',
+      success: () => {
+        queryClient.invalidateQueries(`id-model-${id}`);
+
+        return 'Фото удалено!';
+      },
+      error: (error) => {
+        return typeof error === 'string' ? error : 'Ошибка при удалении фото';
+      },
+    });
+  };
+
   return (
     <>
       <section>
         <div className="profile-cont">
           <div className="profile-image">
-            <img src={mainImage} alt="" />
+            {mainImage && (
+              <button onClick={() => handleRemoveImage(mainImage)}>
+                <ClearIcon />
+              </button>
+            )}
+            <img src={new URL(mainImage, API_URL)} alt="" />
             <div className="thumbnails">
-              {contractor_ID?.data?.images &&
-                contractor_ID?.data?.images.length &&
-                contractor_ID?.data?.images.map((item) => {
-                  const worker = `${API_URL}${item}`;
-                  return (
-                    <img
-                      key={item}
-                      src={worker}
-                      alt=""
-                      onClick={() => handleThumbnailClick(worker)}
-                      className={mainImage === worker ? 'active' : ''}
-                    />
-                  );
-                })}
+              {contractor_ID?.data?.images && contractor_ID?.data?.images.length
+                ? contractor_ID?.data?.images.map((item) => {
+                    const worker = new URL(item, API_URL);
+
+                    return (
+                      <button
+                        style={{ all: 'unset', cursor: 'pointer' }}
+                        onClick={() => handleThumbnailClick(item)}
+                        key={item}
+                      >
+                        <img src={worker} alt="" className={mainImage === worker ? 'active' : ''} />
+                      </button>
+                    );
+                  })
+                : ''}
             </div>
           </div>
           <div className="profile-info">
@@ -69,18 +128,28 @@ export default function EditPage() {
             <p>Телеграм: {contractor_ID?.data?.telegram_contact}</p>
             <p>Адресс: {contractor_ID?.data?.address}</p>
 
-            {/* {isMyProfile ? (
-              <button className="edit-btn" onClick={() => openForm()}>
-                Изменить анкету
-              </button>
+            {isMyProfile ? (
+              <Stack spacing={'10px'} direction={'row'}>
+                <button className="edit-btn" to={`/profile/edit/${id}`}>
+                  Изменить анкету
+                </button>
+                {!(contractor_ID.data?.images?.length >= 5) && (
+                  <button className="edit-btn" onClick={handleButtonClick}>
+                    Добавить фото
+                  </button>
+                )}
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  style={{ display: 'none' }}
+                />
+              </Stack>
             ) : (
               <button className="edit-btn" onClick={() => openForm()}>
                 Связаться
               </button>
-            )} */}
-            <Link className="edit-btn" to={`/profile/edit/${id}`}>
-              Изменить анкету
-            </Link>
+            )}
           </div>
         </div>
         <div className="form-popup" id="myForm">

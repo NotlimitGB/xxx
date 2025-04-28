@@ -1,10 +1,13 @@
-import "./main.scss";
-import { Link } from "react-router-dom";
-import { useGetAllContractors } from "../../queries/models/models";
-import SearchIcon from "@mui/icons-material/Search";
+import './main.scss';
+import { Link } from 'react-router-dom';
+import { useGetAllContractors } from '../../queries/models/models';
+import SearchIcon from '@mui/icons-material/Search';
 
 function LobbyPage() {
   const contractors = useGetAllContractors();
+
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
+
   // console.log(models_ID?.data?.data?.map((item) => [item.id](item.id)));
 
   return (
@@ -22,12 +25,9 @@ function LobbyPage() {
               <Link to={`/profile/${item.id}`} key={item.id}>
                 <div className="card">
                   {item.images && item.images.length && (
-                    <img
-                      src={`http://localhost:3000${item.images[0]}`}
-                      alt=""
-                    />
+                    <img src={new URL(item.images[0], API_URL)} alt="" />
                   )}
-                  <h2>{item.name}</h2>
+                  <h2>{item.idUser.name}</h2>
                   <p>{item.bio}</p>
                 </div>
               </Link>

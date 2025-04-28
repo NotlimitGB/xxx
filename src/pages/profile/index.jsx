@@ -1,6 +1,6 @@
 import './main.scss';
 
-import ClearIcon from '@mui/icons-material/Clear';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import {
   useGetIDContractor,
@@ -95,9 +95,9 @@ export default function EditPage() {
       <section>
         <div className="profile-cont">
           <div className="profile-image">
-            {mainImage && (
+            {mainImage && isMyProfile && (
               <button onClick={() => handleRemoveImage(mainImage)}>
-                <ClearIcon />
+                <DeleteForeverIcon />
               </button>
             )}
             <img src={new URL(mainImage, API_URL)} alt="" />
@@ -120,7 +120,7 @@ export default function EditPage() {
             </div>
           </div>
           <div className="profile-info">
-            <h2>{contractor_ID?.data?.name}</h2>
+            <h2>{contractor_ID.data?.idUser.name}</h2>
             <p>Описание: {contractor_ID?.data?.bio}</p>
             <p>Город: {contractor_ID?.data?.location}</p>
             <p>Рейтинг: {contractor_ID?.data?.rating} </p>

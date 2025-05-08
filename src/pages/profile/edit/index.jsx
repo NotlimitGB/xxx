@@ -1,5 +1,9 @@
 import toast from 'react-hot-toast';
-import { useEditContractor, useGetIDContractor } from '../../../queries/models/models';
+import {
+  useEditContractor,
+  useGetAllQualifications,
+  useGetIDContractor,
+} from '../../../queries/models/models';
 import './main.scss';
 
 import { useForm } from 'react-hook-form';
@@ -7,6 +11,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 
 export default function EditProfilePage() {
+  const qualifications = useGetAllQualifications();
+
   const { id } = useParams();
 
   const editUser = useEditContractor();
@@ -19,6 +25,7 @@ export default function EditProfilePage() {
       experience_years: String(contractor_ID.data?.experience_years),
       telegram_contact: contractor_ID.data?.telegram_contact,
       address: contractor_ID.data?.address,
+      qualification: contractor_ID.data?.qualification.id,
     }),
     [contractor_ID.data]
   );
@@ -45,6 +52,7 @@ export default function EditProfilePage() {
     await toast.promise(
       editUser.mutateAsync({
         ...formData,
+        qualification: Number(formData.qualification),
         experience_years: Number(formData.experience_years),
       }),
       {
@@ -104,21 +112,6 @@ export default function EditProfilePage() {
             </div>
 
             <div>
-              <label htmlFor="telegram_contact">Телеграм</label>
-              <input
-                className="input-field"
-                id="telegram_contact"
-                type="text"
-                {...register('telegram_contact', {
-                  required: 'Телеграм обязателен',
-                })}
-              />
-              {errors.telegram_contact && (
-                <p style={{ color: 'red' }}>{errors.telegram_contact.message}</p>
-              )}
-            </div>
-
-            <div>
               <label htmlFor="address">Адрес</label>
               <input
                 className="input-field"
@@ -128,6 +121,24 @@ export default function EditProfilePage() {
                   required: 'Адрес обязателен',
                 })}
               />
+              {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
+            </div>
+
+            <div>
+              <label htmlFor="qualification">Квалификация</label>
+              <select
+                className="input-field"
+                id="qualification"
+                {...register('qualification', {
+                  required: 'Квалификация обязателен',
+                })}
+              >
+                {qualifications.data?.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
               {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
             </div>
 

@@ -1,11 +1,13 @@
 import toast from 'react-hot-toast';
-import { useCreateContractor } from '../../../queries/models/models';
+import { useCreateContractor, useGetAllQualifications } from '../../../queries/models/models';
 import './main.scss';
 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateProfilePage() {
+  const qualifications = useGetAllQualifications();
+
   const createUser = useCreateContractor();
 
   const {
@@ -20,6 +22,7 @@ export default function CreateProfilePage() {
       experience_years: 0,
       telegram_contact: '',
       address: '',
+      qualification: 0,
     },
   });
 
@@ -32,6 +35,7 @@ export default function CreateProfilePage() {
       createUser.mutateAsync({
         ...formData,
         experience_years: Number(formData.experience_years),
+        qualification: Number(formData.qualification),
       }),
       {
         loading: 'Созданеи анкеты',
@@ -114,6 +118,23 @@ export default function CreateProfilePage() {
                   required: 'Адрес обязателен',
                 })}
               />
+              {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
+            </div>
+            <div>
+              <label htmlFor="qualification">Квалификация</label>
+              <select
+                className="input-field"
+                id="qualification"
+                {...register('qualification', {
+                  required: 'Квалификация обязателен',
+                })}
+              >
+                {qualifications.data?.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
               {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
             </div>
 

@@ -5,19 +5,23 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   useGetIDContractor,
   useRemoveImageContractor,
+  useSendContractorMessage,
   useUploadContarctorAvatar,
 } from '../../queries/models/models';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAppContext } from '../../App';
 import toast from 'react-hot-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { Stack } from '@mui/material';
+import { useForm } from 'react-hook-form';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function EditPage() {
+  const sendMessage = useSendContractorMessage();
+
   const removeImage = useRemoveImageContractor();
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
@@ -33,6 +37,10 @@ export default function EditPage() {
     () => data.id === contractor_ID.data?.idUser.id,
     [data, contractor_ID.data]
   );
+
+  const { register, handleSubmit } = useForm({
+    mode: 'all',
+  });
 
   useEffect(() => {
     if (contractor_ID?.data?.images) {
@@ -90,6 +98,26 @@ export default function EditPage() {
     });
   };
 
+  const onSubmit = async (formData) => {
+    console.log(formData);
+
+    await toast.promise(
+      sendMessage.mutateAsync({
+        ...formData,
+        contractorId: contractor_ID.data?.id,
+      }),
+      {
+        loading: 'Отправляем сообщение',
+        success: () => {
+          closeForm();
+          return 'Сообщение отправлено!';
+        },
+
+        error: 'Ошибка при отправки сообщения',
+      }
+    );
+  };
+
   return (
     <>
       <section>
@@ -125,18 +153,27 @@ export default function EditPage() {
             <p>Город: {contractor_ID?.data?.location}</p>
             <p>Рейтинг: {contractor_ID?.data?.rating} </p>
             <p>Стаж: {contractor_ID?.data?.experience_years}</p>
-            <p>Телеграм: {contractor_ID?.data?.telegram_contact}</p>
             <p>Адресс: {contractor_ID?.data?.address}</p>
+            <p>Квалификация: {contractor_ID?.data?.qualification.name}</p>
 
             {isMyProfile ? (
               <Stack spacing={'10px'} direction={'row'}>
-                <button className="edit-btn" to={`/profile/edit/${id}`}>
+                <Link className="edit-btn" to={`/profile/edit/${id}`}>
                   Изменить анкету
-                </button>
+                </Link>
                 {!(contractor_ID.data?.images?.length >= 5) && (
                   <button className="edit-btn" onClick={handleButtonClick}>
                     Добавить фото
                   </button>
+                )}
+                {!contractor_ID.data?.is_telegram && (
+                  <Link
+                    className="edit-btn"
+                    to={`https://t.me/taskera_dev_bot?text=/link ${contractor_ID.data?.telegram_code_link}`}
+                    target="_blank"
+                  >
+                    Подключить уведомления в tg
+                  </Link>
                 )}
                 <input
                   type="file"
@@ -153,13 +190,23 @@ export default function EditPage() {
           </div>
         </div>
         <div className="form-popup" id="myForm">
-          <form action="" method="POST">
+          <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="name">Имя:</label>
-            <input type="text" id="name" name="name" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              {...register('name', { required: 'Описание обязательно' })}
+            />
             <label htmlFor="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" required />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              {...register('phone', { required: 'Описание обязательно' })}
+            />
             <label htmlFor="text">Обращене</label>
-            <input type="text" />
+            <input type="text" {...register('message', { required: 'Описание обязательно' })} />
             <input type="submit" value="Отправить" />
           </form>
           <button type="button" className="close" onClick={() => closeForm()}>

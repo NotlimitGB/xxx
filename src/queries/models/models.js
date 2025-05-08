@@ -4,15 +4,17 @@ import instance from '../instance';
 import { useMutation, useQuery } from '@tanstack/react-query';
 // ------------------------------------------------------------------------------------------------------
 // Получить всех моделей
-export function useGetAllContractors() {
+export function useGetAllContractors(filters) {
   const navigate = useNavigate();
   const { data, setData } = useAppContext();
 
   return useQuery({
-    queryKey: ['all-models'],
+    queryKey: ['all-models', filters],
     queryFn: async () => {
       try {
-        const result = await instance(data.token).get(`/contractor`);
+        const result = await instance(data.token).post(`/contractor/list`, {
+          filters,
+        });
 
         return result.data;
       } catch (error) {
@@ -36,6 +38,29 @@ export function useGetIDContractor(id) {
     queryFn: async () => {
       try {
         const result = await instance(data.token).get(`/contractor/${id}`);
+
+        return result.data;
+      } catch (error) {
+        if (error.response?.status === 401) {
+          setData({});
+          navigate('/login');
+        }
+        throw error;
+      }
+    },
+  });
+}
+
+// ------------------------------------------------------------------------------------------------------
+// Получить список квалификаций
+export function useGetAllQualifications() {
+  const { data, setData } = useAppContext();
+  const navigate = useNavigate();
+  return useQuery({
+    queryKey: [`list-qualifications`],
+    queryFn: async () => {
+      try {
+        const result = await instance(data.token).get(`/qualifications`);
 
         return result.data;
       } catch (error) {
@@ -143,6 +168,30 @@ export function useRemoveImageContractor() {
           data: {
             imageUrl: imageUrl,
           },
+        });
+        return result.data;
+      } catch (error) {
+        if (error.response?.status === 401) {
+          setData({});
+          navigate('/login');
+        }
+        throw error;
+      }
+    },
+  });
+}
+
+// ------------------------------------------------------------------------------------------------------
+// Связатся с исполнителем
+
+export function useSendContractorMessage() {
+  const { data, setData } = useAppContext();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: async (body) => {
+      try {
+        const result = await instance(data.token).post(`/contractor/message`, {
+          ...body,
         });
         return result.data;
       } catch (error) {

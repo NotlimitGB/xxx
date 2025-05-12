@@ -27,8 +27,12 @@ function LobbyPage() {
     },
   });
 
-  const onSubmit = async (formData) => {
-    setFilters(formData);
+const onSubmit = async (formData) => {
+    if (formData.qualification === 0) {
+      setFilters({});
+    } else {
+      setFilters(formData);
+    }
     reset(formData);
   };
 

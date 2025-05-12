@@ -169,7 +169,7 @@ export default function EditPage() {
                 {!contractor_ID.data?.is_telegram && (
                   <Link
                     className="edit-btn"
-                    to={`https://t.me/taskera_dev_bot?text=/link ${contractor_ID.data?.telegram_code_link}`}
+                    to={`https://t.me/taskera_ru_bot?text=/link ${contractor_ID.data?.telegram_code_link}`}
                     target="_blank"
                   >
                     Подключить уведомления в tg

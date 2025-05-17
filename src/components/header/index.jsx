@@ -2,23 +2,36 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { Stack } from '@mui/material';
 import './main.scss';
 import { Link } from 'react-router-dom';
-
-const PAGES_MENU = [
-  {
-    title: 'Главная',
-    path: '/',
-  },
-  // {
-  //   title: "Навигация",
-  //   path: "#",
-  // },
-  {
-    title: 'Аккаунт',
-    path: '/accounts',
-  },
-];
+import { useAppContext } from '../../App';
+import { USER_ROLES } from '../../enum';
 
 export default function Header() {
+  const { data, setData } = useAppContext();
+
+  const PAGES_MENU = [
+    {
+      title: 'Главная',
+      path: '/',
+    },
+
+    {
+      title: 'Аккаунт',
+      path: '/accounts',
+    },
+    ...(data.role === USER_ROLES.админ
+      ? [
+          {
+            title: 'Пользователи',
+            path: '/admin/users',
+          },
+
+          {
+            title: 'Исполнители',
+            path: '/admin/contractors',
+          },
+        ]
+      : []),
+  ];
   return (
     <>
       <div className="header-cont">

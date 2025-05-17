@@ -94,21 +94,6 @@ export default function CreateProfilePage() {
             </div>
 
             <div>
-              <label htmlFor="telegram_contact">Телеграм</label>
-              <input
-                className="input-field"
-                id="telegram_contact"
-                type="text"
-                {...register('telegram_contact', {
-                  required: 'Телеграм обязателен',
-                })}
-              />
-              {errors.telegram_contact && (
-                <p style={{ color: 'red' }}>{errors.telegram_contact.message}</p>
-              )}
-            </div>
-
-            <div>
               <label htmlFor="address">Адрес</label>
               <input
                 className="input-field"

@@ -1,17 +1,19 @@
-import "./global.scss";
-import "./styles/mainPage.scss";
-import Header from "./components/header";
-import LobbyPage from "./pages/lobby";
-import LoginPage from "./login";
-import ProfilePage from "./pages/profile";
-import AccountPage from "./pages/accounts";
-import CreateProfilePage from "./pages/profile/add";
+import './global.scss';
+import './styles/mainPage.scss';
+import Header from './components/header';
+import LobbyPage from './pages/lobby';
+import LoginPage from './login';
+import ProfilePage from './pages/profile';
+import AccountPage from './pages/accounts';
+import CreateProfilePage from './pages/profile/add';
 
-import { Routes, Route, Outlet } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import RegistrationPage from "./registration";
-import { createContext, useContext, useEffect, useState } from "react";
-import EditProfilePage from "./pages/profile/edit";
+import { Routes, Route, Outlet } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import RegistrationPage from './registration';
+import { createContext, useContext, useEffect, useState } from 'react';
+import EditProfilePage from './pages/profile/edit';
+import AdminPageUsers from './pages/admin/users/user_admin';
+import AdminPageContractors from './pages/admin/contractor/contractor_admin';
 
 const AppContext = createContext();
 
@@ -30,14 +32,14 @@ const MainLayout = () => {
 function App() {
   const [data, setData] = useState(() => {
     // Попытка загрузить данные из localStorage при старте
-    const storedData = localStorage.getItem("data");
+    const storedData = localStorage.getItem('data');
     return storedData ? JSON.parse(storedData) : {};
   });
 
   useEffect(() => {
     // Сохраняем данные в localStorage всякий раз, когда они изменяются
     if (data) {
-      localStorage.setItem("data", JSON.stringify(data));
+      localStorage.setItem('data', JSON.stringify(data));
     }
   }, [data]);
 
@@ -52,6 +54,8 @@ function App() {
           <Route path="/profile/add" element={<CreateProfilePage />} />
           <Route path="/profile/edit/:id" element={<EditProfilePage />} />
           <Route path="profile/:id" element={<ProfilePage />} />
+          <Route path="admin/users" element={<AdminPageUsers />} />
+          <Route path="admin/contractors" element={<AdminPageContractors />} />
         </Route>
       </Routes>
     </AppContext.Provider>

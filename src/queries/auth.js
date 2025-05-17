@@ -1,7 +1,7 @@
-import { jwtDecode } from "jwt-decode";
-import { useAppContext } from "../App";
-import instance from "./instance";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { jwtDecode } from 'jwt-decode';
+import { useAppContext } from '../App';
+import instance from './instance';
+import { useMutation, useQuery } from '@tanstack/react-query';
 // ------------------------------------------------------------------------------------------------------
 // Регестрация пользователя
 

@@ -141,6 +141,11 @@ function AccountPage() {
                     </Link>
                   ))}
               </div>
+              <div className="role_name">
+                {user.data.role === USER_ROLES.админ && (
+                  <Link to={`/admin/users`}>Перейти в админку</Link>
+                )}
+              </div>
             </div>
 
             {/* История заказов */}

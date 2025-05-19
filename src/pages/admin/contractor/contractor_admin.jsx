@@ -1,4 +1,4 @@
-// import './main.scss';
+import './main.scss';
 // import { Link } from 'react-router-dom';
 // import { useGetAllContractors, useGetAllQualifications } from '../../queries/models/models';
 // import SearchIcon from '@mui/icons-material/Search';
@@ -41,7 +41,7 @@ export default function AdminPageContractors() {
                     <p>Рейтинг: {item.rating} </p>
                     <p>Стаж: {item.experience_years}</p>
                     <p>Адресс: {item.address}</p>
-                    <button onClick={() => onBanUser(item?.id)}>Ban</button>
+                    <button onClick={() => onBanUser(item?.id)}>Опубликовать</button>
                   </li>
                 ))}
             </ul>

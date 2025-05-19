@@ -1,0 +1,90 @@
+.user_list_cont {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.user_list {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #f8f9fa;
+    }
+  }
+
+  .contractor-info {
+    display: grid;
+    gap: 0.5rem;
+    
+    h2 {
+      margin: 0;
+      color: #2d3436;
+      font-size: 1.4rem;
+    }
+
+    p {
+      margin: 0;
+      color: #636e72;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: #74b9ff;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  button {
+    align-self: center;
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 
+      background 0.2s ease,
+      transform 0.1s ease;
+    height: fit-content;
+
+    &:hover {
+      background: #ff6b81;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+

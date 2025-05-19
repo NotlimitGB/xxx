@@ -1,4 +1,4 @@
-// import './main.scss';
+import './main.scss';
 // import { Link } from 'react-router-dom';
 // import { useGetAllContractors, useGetAllQualifications } from '../../queries/models/models';
 // import SearchIcon from '@mui/icons-material/Search';

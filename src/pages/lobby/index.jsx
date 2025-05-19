@@ -39,10 +39,6 @@ const onSubmit = async (formData) => {
   return (
     <>
       <section>
-        <div className="search-bar">
-          <input type="text" placeholder="Search" />
-          <SearchIcon className="search-icon" />
-        </div>
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className="form-edit">
             <div>

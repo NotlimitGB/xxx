@@ -4,7 +4,7 @@ import { useGetAllContractors, useGetAllQualifications } from '../../queries/mod
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function LobbyPage() {
   const [filters, setFilters] = useState({});
@@ -20,21 +20,29 @@ function LobbyPage() {
     handleSubmit,
     reset,
     formState: { isDirty },
+    watch, // Добавляем watch для отслеживания значений
   } = useForm({
-    mode: 'all',
+    mode: 'onChange', // Меняем на onChange для более предсказуемого поведения
     defaultValues: {
-      qualification: 0,
+      qualification: '0', // Делаем строкой для consistency
     },
   });
 
-const onSubmit = async (formData) => {
-    if (formData.qualification === 0) {
-      setFilters({});
-    } else {
-      setFilters(formData);
-    }
-    reset(formData);
+  const currentQualification = watch('qualification'); // Следим за изменением значения
+
+  const onSubmit = async (formData) => {
+    // Упрощенная логика фильтрации
+    setFilters(formData.qualification === '0' ? {} : { qualification: formData.qualification });
+
+    // Не сбрасываем форму, чтобы сохранить текущий выбор
   };
+
+  // Дополнительно: сброс фильтров при выборе "Все"
+  useEffect(() => {
+    if (currentQualification === '0') {
+      setFilters({});
+    }
+  }, [currentQualification, setFilters]);
 
   return (
     <>
@@ -43,8 +51,8 @@ const onSubmit = async (formData) => {
           <form onSubmit={handleSubmit(onSubmit)} className="form-edit">
             <div>
               <label htmlFor="qualification">Квалификация</label>
-              <select className="input-field" id="qualification" {...register('qualification', {})}>
-                <option value={0}>Все</option>
+              <select className="input-field" id="qualification" {...register('qualification')}>
+                <option value="0">Все</option>
                 {qualifications.data?.map((item) => (
                   <option value={item.id} key={item.id}>
                     {item.name}
@@ -53,7 +61,7 @@ const onSubmit = async (formData) => {
               </select>
             </div>
             <button className="button accent" type="submit" disabled={!isDirty}>
-              Отправить
+              Применить фильтр
             </button>
           </form>
         </div>

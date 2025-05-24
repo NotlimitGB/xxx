@@ -108,7 +108,6 @@ function AccountPage() {
                 <div className="name">{user.data.name}</div>
                 <div className="details">
                   <p>Email: {user.data.email}</p>
-                  <p>Телефон: 89811356795</p>
                 </div>
               </div>
             </div>
@@ -145,22 +144,6 @@ function AccountPage() {
                 {user.data.role === USER_ROLES.админ && (
                   <Link to={`/admin/users`}>Перейти в админку</Link>
                 )}
-              </div>
-            </div>
-
-            {/* История заказов */}
-            <div className="section orderHistory">
-              <h2>История заказов</h2>
-              <div className="order">
-                <div className="orderHeader">
-                  <div className="orderId">Заказ №32131</div>
-                  <div className="orderDate">12.12.24</div>
-                </div>
-                <div className="orderDetails">
-                  <div className="detail">Услуга: Чистка труб</div>
-                  <div className="detail">Цена: 3000</div>
-                  <div className="detail">Статус: выполненено </div>
-                </div>
               </div>
             </div>
 

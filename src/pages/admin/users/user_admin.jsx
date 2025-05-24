@@ -16,10 +16,10 @@ export default function AdminPageUsers() {
     toast.promise(banUser.mutateAsync({ body: { reason: 'Плохо себя вёл' }, user_id }), {
       loading: 'Запрашиваем данные...',
       success: () => {
-        return 'Пользователь вошел в систему!';
+        return `Пользователь  заблокирован`;
       },
       error: (error) => {
-        return typeof error === 'string' ? error : 'Ошибка при запросе данных';
+        return typeof error === 'string' ? error : 'Пользователь уже заблокирован';
       },
     });
   };
@@ -35,9 +35,13 @@ export default function AdminPageUsers() {
                 allUsers.data &&
                 allUsers.data.length &&
                 allUsers?.data?.map((item) => (
-                  <li key={`user-${item.id}`}>
+                  <li key={`user-${item.id}`} className={item.isBanned ? 'banned-user' : ''}>
                     <span>{item?.name}</span>
-                    <button onClick={() => onBanUser(item?.id)}>Ban</button>
+                    <span>{item?.email}</span>
+                    <span>{item?.role}</span>
+                    <button onClick={() => onBanUser(item?.id)}>
+                      {item.isBanned ? 'Unban' : 'Ban'}
+                    </button>
                   </li>
                 ))}
             </ul>

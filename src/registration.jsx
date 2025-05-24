@@ -20,7 +20,7 @@ function RegistrationPage() {
     console.log(event);
 
     if (name.trim() === '' || password.trim() === '' || email.trim() === '') {
-      toast.error('Пожалуйста, введите оба поля: Логин и Пароль.');
+      toast.error('Пожалуйста, введите все поля.');
     } else {
       // toast.success('Успешный вход!');
       // console.log(`Пользователь ${username} вошел в систему.`);

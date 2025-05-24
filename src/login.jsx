@@ -69,9 +69,6 @@ function LoginPage() {
           </form>
           <Toaster position="top-right" reverseOrder={false} />
           <div className="button-grid">
-            <div className="forgot-password">
-              <a href="#">Забыли пароль?</a>
-            </div>
             <div className="new-profile">
               <a href="./reg">Создать профиль</a>
             </div>

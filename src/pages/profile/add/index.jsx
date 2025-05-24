@@ -41,10 +41,10 @@ export default function CreateProfilePage() {
         loading: 'Созданеи анкеты',
         success: (data) => {
           navigate(`/profile/${data.id}`);
-          return 'Модель получена!';
+          return 'Анкета создана';
         },
 
-        error: 'Ошибка при получении модели',
+        error: 'Ошибка при создании анкеты',
       }
     );
   };

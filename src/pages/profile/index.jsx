@@ -84,6 +84,8 @@ export default function EditPage() {
     }
   };
 
+  console.log(contractor_ID.data);
+
   const handleRemoveImage = (url) => {
     toast.promise(removeImage.mutateAsync({ id, imageUrl: url }), {
       loading: 'Удаляем фото...',
@@ -190,6 +192,7 @@ export default function EditPage() {
           </div>
         </div>
         <div className="form-popup" id="myForm">
+          {}
           <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="name">Имя:</label>
             <input
@@ -207,7 +210,11 @@ export default function EditPage() {
             />
             <label htmlFor="text">Обращене</label>
             <input type="text" {...register('message', { required: 'Описание обязательно' })} />
-            <input type="submit" value="Отправить" />
+            {contractor_ID?.data?.is_telegram ? (
+              <input type="submit" value="Отправить" />
+            ) : (
+              <span>К сожалению у автора не подключён телеграм</span>
+            )}
           </form>
           <button type="button" className="close" onClick={() => closeForm()}>
             &times;

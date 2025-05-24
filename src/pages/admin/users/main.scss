@@ -13,86 +13,57 @@
   ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-  }
 
-  li {
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #eee;
-    transition: background 0.2s ease;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    &:hover {
+    li {
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 4px;
       background: #f8f9fa;
-    }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
 
-    span {
-      font-size: 1.1rem;
-      color: #333;
-      font-weight: 500;
-    }
+      &.banned-user {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
 
-    button {
-      background: #ff4757;
-      color: white;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 
-        background 0.2s ease,
-        transform 0.1s ease;
+        span {
+          color: #d32f2f;
+          font-weight: 500;
+        }
 
-      &:hover {
-        background: #ff6b81;
-        transform: translateY(-1px);
+        button {
+          background: #4caf50;
+
+          &:hover {
+            background: #388e3c;
+          }
+        }
       }
 
-      &:active {
-        transform: translateY(0);
+      span {
+        flex: 1;
+        padding: 0 8px;
+      }
+
+      button {
+        padding: 6px 12px;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #d32f2f;
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
       }
     }
   }
-}
-
-// Адаптивность
-@media (max-width: 768px) {
-  .user_list_cont {
-    margin: 1rem;
-    padding: 0;
-  }
-
-  .user_list li {
-    padding: 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
-
-    button {
-      width: 100%;
-      padding: 0.8rem;
-    }
-  }
-}
-
-// Скелетон-загрузка (если нужно)
-.loading-skeleton {
-  li {
-    height: 60px;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-  }
-}
-
-@keyframes loading {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
 }

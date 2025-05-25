@@ -42,9 +42,7 @@ export default function AdminPageUsers() {
                     <span>{item?.name}</span>
                     <span>{item?.email}</span>
                     <span>{item?.role}</span>
-                    <button onClick={() => onBanUser(item?.id)}>
-                      {item.isBanned ? 'Unban' : 'Ban'}
-                    </button>
+                    <button onClick={() => onBanUser(item?.id)}>bun</button>
                   </li>
                 ))}
             </ul>

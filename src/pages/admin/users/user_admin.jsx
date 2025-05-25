@@ -8,14 +8,17 @@ import './main.scss';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllUsers, usePutUserBan } from '../../../queries/admin/users.js';
 import toast from 'react-hot-toast';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function AdminPageUsers() {
   const allUsers = useGetAllUsers();
   const banUser = usePutUserBan();
+  const queryClient = useQueryClient();
   const onBanUser = (user_id) => {
     toast.promise(banUser.mutateAsync({ body: { reason: 'Плохо себя вёл' }, user_id }), {
       loading: 'Запрашиваем данные...',
       success: () => {
+        queryClient.invalidateQueries(['all-models']);
         return `Пользователь  заблокирован`;
       },
       error: (error) => {

@@ -3,7 +3,12 @@ import React, { useRef, useState } from 'react';
 import './main.scss';
 
 import worker1 from '../../assets/worker_1.jpg';
-import { useBeContractor, useGetProfile, useUploadUserAvatar } from '../../queries/user/user';
+import {
+  useBeContractor,
+  useGetProfile,
+  useTokenRefresh,
+  useUploadUserAvatar,
+} from '../../queries/user/user';
 import { USER_ROLES } from '../../enum';
 import { useAppContext } from '../../App';
 import { useQueryClient } from '@tanstack/react-query';
@@ -19,6 +24,7 @@ function AccountPage() {
   const beContractor = useBeContractor();
   const { data, setData } = useAppContext();
   const queryClient = useQueryClient();
+  const refresh = useTokenRefresh();
 
   const faqData = [
     {
@@ -52,6 +58,7 @@ function AccountPage() {
       loading: 'Запрашиваем данные...',
       success: () => {
         queryClient.invalidateQueries(`profile-${data.id}`);
+        refresh.mutateAsync();
 
         return 'Вы стали исполнителем!';
       },

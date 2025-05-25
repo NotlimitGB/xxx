@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../App';
 import instance from '../instance';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { jwtDecode } from 'jwt-decode';
 
 // ------------------------------------------------------------------------------------------------------
 // Получить Свой профель
@@ -89,18 +90,13 @@ export function useTokenRefresh() {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (file) => {
+    mutationFn: async () => {
       try {
-        // Создаем FormData (даже если она пустая или содержит поля)
-        const formData = new FormData();
-        // Пример: если нужно добавить поле
-        formData.append('avatar', file);
-
-        const result = await instance(data.token).post(`/auth/refresh-token`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data', // Указываем тип контента
-          },
-        });
+        const result = await instance(data.token).post(
+          `/auth/refresh-token`,
+          { refreshToken: data.token },
+          {}
+        );
 
         return result.data;
       } catch (error) {
@@ -110,6 +106,16 @@ export function useTokenRefresh() {
         }
         throw error;
       }
+    },
+    onSuccess: (response) => {
+      const decoded = jwtDecode(response.accessToken);
+      console.log(decoded);
+      setData({
+        ...data,
+        token: response.accessToken,
+        id: decoded.id,
+        role: decoded.role,
+      });
     },
   });
 }

@@ -30,7 +30,7 @@ export default function AdminPageContractors() {
                 allContractors.data.length &&
                 allContractors?.data?.map((item) => (
                   <li key={`user-${item.id}`}>
-                    <h2>{item.idUser?.name}</h2>
+                    <h2>Имя: {item.idUser?.name}</h2>
                     <p>Описание: {item?.bio}</p>
                     <p>Город: {item.location}</p>
                     <p>Стаж: {item.experience_years}</p>

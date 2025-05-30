@@ -32,6 +32,13 @@ export default function AdminPageUsers() {
     <>
       <section>
         <div className="user_list_cont">
+          <ul>
+            <li>
+              <span>Имя</span>
+              <span>Почта</span>
+              <span>Роль</span>
+            </li>
+          </ul>
           <div className="user_list">
             <ul>
               {allUsers.isSuccess &&
@@ -42,7 +49,8 @@ export default function AdminPageUsers() {
                     <span>{item?.name}</span>
                     <span>{item?.email}</span>
                     <span>{item?.role}</span>
-                    <button onClick={() => onBanUser(item?.id)}>bun</button>
+
+                    <button onClick={() => onBanUser(item?.id)}>Ban</button>
                   </li>
                 ))}
             </ul>

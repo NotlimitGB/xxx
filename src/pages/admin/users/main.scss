@@ -2,13 +2,6 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
-}
-
-.user_list {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
 
   ul {
     list-style: none;
@@ -34,10 +27,54 @@
         }
 
         button {
-          background: #4caf50;
+          background-color: gray;
+        }
+      }
 
+      span {
+        flex: 1;
+        padding: 0 8px;
+      }
+    }
+  }
+}
+
+.user_list {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 300px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 4px;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+
+      &.banned-user {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+
+        span {
+          color: #d32f2f;
+          font-weight: 500;
+        }
+
+        button {
+          background-color: gray;
           &:hover {
-            background: #388e3c;
+            background: #000;
+            cursor: default;
           }
         }
       }

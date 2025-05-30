@@ -14,6 +14,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import EditProfilePage from './pages/profile/edit';
 import AdminPageUsers from './pages/admin/users/user_admin';
 import AdminPageContractors from './pages/admin/contractor/contractor_admin';
+import ServerStatus from './components/serverChek/ServerStatus';
 
 const AppContext = createContext();
 
@@ -44,21 +45,23 @@ function App() {
   }, [data]);
 
   return (
-    <AppContext.Provider value={{ data, setData }}>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/reg" element={<RegistrationPage />} />
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<LobbyPage />} />
-          <Route path="/accounts" element={<AccountPage />} />
-          <Route path="/profile/add" element={<CreateProfilePage />} />
-          <Route path="/profile/edit/:id" element={<EditProfilePage />} />
-          <Route path="profile/:id" element={<ProfilePage />} />
-          <Route path="admin/users" element={<AdminPageUsers />} />
-          <Route path="admin/contractors" element={<AdminPageContractors />} />
-        </Route>
-      </Routes>
-    </AppContext.Provider>
+    <ServerStatus>
+      <AppContext.Provider value={{ data, setData }}>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/reg" element={<RegistrationPage />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<LobbyPage />} />
+            <Route path="/accounts" element={<AccountPage />} />
+            <Route path="/profile/add" element={<CreateProfilePage />} />
+            <Route path="/profile/edit/:id" element={<EditProfilePage />} />
+            <Route path="profile/:id" element={<ProfilePage />} />
+            <Route path="admin/users" element={<AdminPageUsers />} />
+            <Route path="admin/contractors" element={<AdminPageContractors />} />
+          </Route>
+        </Routes>
+      </AppContext.Provider>
+    </ServerStatus>
   );
 }
 export const useAppContext = () => useContext(AppContext);

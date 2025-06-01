@@ -1,51 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useCheckConnection } from '../../queries/chekServer';
+import { useNavigate } from 'react-router-dom';
 
-const ServerStatus = () => {
-  const [isOnline, setIsOnline] = useState(true);
-  const [loading, setLoading] = useState(true);
+const ServerStatus = ({ children }) => {
+  const connection = useCheckConnection();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const checkServer = async () => {
-      try {
-        setLoading(true);
+    if (connection.data?.status === 200 && !connection.isFetching) navigate(`/`);
+  }, [connection.data, navigate]);
 
-        const response = await fetch('/favicon.ico', {
-          method: 'HEAD',
-          cache: 'no-cache',
-        });
-
-        setIsOnline(response.ok);
-      } catch (error) {
-        setIsOnline(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkServer();
-
-    const interval = setInterval(checkServer, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
-    return null;
-  }
-
-  if (!isOnline) {
-    return (
-      <div style={styles.overlay}>
-        <div style={styles.messageBox}>
-          <h2 style={styles.title}>Сервер недоступен</h2>
-          <p style={styles.text}>Пытаемся подключиться к серверу...</p>
-          <div style={styles.loader}></div>
-        </div>
+  return (
+    <div style={styles.overlay}>
+      <div style={styles.messageBox}>
+        <h2 style={styles.title}>Сервер недоступен</h2>
+        <p style={styles.text}>Пытаемся подключиться к серверу...</p>
+        <div style={styles.loader}></div>
       </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 };
 
 const styles = {
@@ -69,6 +42,7 @@ const styles = {
     borderRadius: '8px',
     maxWidth: '500px',
     width: '90%',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   title: {
     fontSize: '2rem',
@@ -86,19 +60,34 @@ const styles = {
     height: '40px',
     margin: '0 auto',
     animation: 'spin 1s linear infinite',
+    marginBottom: '1.5rem',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '1rem',
+    background: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
   },
 };
 
 // Добавляем стили анимации в документ
-const styleSheet = document.styleSheets[0];
-styleSheet.insertRule(
-  `
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`,
-  styleSheet.cssRules.length
-);
+const addAnimationStyles = () => {
+  if (typeof document === 'undefined') return; // Для SSR
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+};
+
+addAnimationStyles();
 
 export default ServerStatus;

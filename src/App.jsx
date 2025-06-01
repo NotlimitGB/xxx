@@ -7,7 +7,7 @@ import ProfilePage from './pages/profile';
 import AccountPage from './pages/accounts';
 import CreateProfilePage from './pages/profile/add';
 
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import RegistrationPage from './registration';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -15,6 +15,8 @@ import EditProfilePage from './pages/profile/edit';
 import AdminPageUsers from './pages/admin/users/user_admin';
 import AdminPageContractors from './pages/admin/contractor/contractor_admin';
 import ServerStatus from './components/serverChek/ServerStatus';
+import { useCheckConnection } from './queries/chekServer';
+import { useQueryClient } from '@tanstack/react-query';
 
 const AppContext = createContext();
 
@@ -31,6 +33,18 @@ const MainLayout = () => {
 };
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
+  const connection = useCheckConnection();
+
+  const location = useLocation();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (location.pathname !== `/server-status`) {
+      queryClient.invalidateQueries([`check-connection`]);
+    }
+  }, [location.pathname]);
+
   const [data, setData] = useState(() => {
     // Попытка загрузить данные из localStorage при старте
     const storedData = localStorage.getItem('data');
@@ -45,23 +59,22 @@ function App() {
   }, [data]);
 
   return (
-    <ServerStatus>
-      <AppContext.Provider value={{ data, setData }}>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/reg" element={<RegistrationPage />} />
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<LobbyPage />} />
-            <Route path="/accounts" element={<AccountPage />} />
-            <Route path="/profile/add" element={<CreateProfilePage />} />
-            <Route path="/profile/edit/:id" element={<EditProfilePage />} />
-            <Route path="profile/:id" element={<ProfilePage />} />
-            <Route path="admin/users" element={<AdminPageUsers />} />
-            <Route path="admin/contractors" element={<AdminPageContractors />} />
-          </Route>
-        </Routes>
-      </AppContext.Provider>
-    </ServerStatus>
+    <AppContext.Provider value={{ data, setData }}>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/reg" element={<RegistrationPage />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<LobbyPage />} />
+          <Route path="/accounts" element={<AccountPage />} />
+          <Route path="/profile/add" element={<CreateProfilePage />} />
+          <Route path="/profile/edit/:id" element={<EditProfilePage />} />
+          <Route path="profile/:id" element={<ProfilePage />} />
+          <Route path="admin/users" element={<AdminPageUsers />} />
+          <Route path="admin/contractors" element={<AdminPageContractors />} />
+          <Route path="server-status" element={<ServerStatus />} />
+        </Route>
+      </Routes>
+    </AppContext.Provider>
   );
 }
 export const useAppContext = () => useContext(AppContext);

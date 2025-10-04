@@ -10,14 +10,16 @@ export function useCheckConnection() {
     queryKey: ['check-connection'],
     queryFn: async () => {
       try {
-        const result = await instance().get(`/`);
-
+        // Установка таймаута в миллисекундах (например, 5000 = 5 секунд)
+        const result = await instance().get(`/`, { timeout: 5000 });
         return result;
       } catch (error) {
         navigate('/server-status');
-
         throw error;
       }
     },
+    // Опционально: устанавливаем общий таймаут для Query (в react-query v5)
+    gcTime: 5000, // Время кэширования (старый 'cacheTime')
+    staleTime: 5000, // Время "свежести" данных
   });
 }
